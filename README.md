@@ -16,7 +16,7 @@ https://github.com/helm/helm/issues/6374
 # Prepare
 Minikube has no access to the local docker image registry.
 
-To build the images within minikube use the following:
+To build the images within minikube:  
 
 `eval $(minikube docker-env)`
 
@@ -24,7 +24,7 @@ To build the images within minikube use the following:
 
 `eval $(minikube docker-env -u)`
 
-To install the dependencies listed in the helmchart use the following:
+To install the dependencies listed in the helmchart:  
 `helm dependency update`
 
 # Deploy
@@ -32,3 +32,10 @@ To install the dependencies listed in the helmchart use the following:
 
 # Remove
 `helm delete --purge fake-bank-backend`
+
+# Debug
+Connect to a container:  
+`kubectl exec -it fake-bank-backend-database-0 bash`
+
+Read Postgres config:
+`printenv | grep POSTGRES_`
