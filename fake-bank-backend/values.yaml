@@ -32,9 +32,14 @@ ingress:
   #      - chart-example.local
 
 database:
-  postgresqlUsername: postgres
-  postgresqlPassword: backendPassword
-  postgresqlDatabase: fake-bank-backend
+  fullnameOverride: fake-bank-backend-database
+  persistence:
+    enabled: false
+  global:
+    postgresql:
+      postgresqlUsername: postgres
+      postgresqlPassword: backendPassword
+      postgresqlDatabase: fake-bank-backend
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
