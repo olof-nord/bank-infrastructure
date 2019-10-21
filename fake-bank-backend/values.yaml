@@ -37,7 +37,7 @@ database:
     enabled: false
   global:
     postgresql:
-      postgresqlUsername: postgres
+      postgresqlUsername: fake-bank-backend
       postgresqlPassword: backendPassword
       postgresqlDatabase: fake-bank-backend
 

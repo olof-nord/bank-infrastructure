@@ -17,12 +17,12 @@ https://github.com/helm/helm/issues/6374
 Minikube has no access to the local docker image registry.
 
 To build the images within minikube:  
+`eval $(minikube docker-env)`  
+`docker build -t fake-bank-backend:latest .`  
+`eval $(minikube docker-env -u)`  
 
-`eval $(minikube docker-env)`
-
-`docker build -t fake-bank-backend:latest .`
-
-`eval $(minikube docker-env -u)`
+To update the child charts:  
+`helm dependency update`
 
 To install the dependencies listed in the helmchart:  
 `helm dependency update`
