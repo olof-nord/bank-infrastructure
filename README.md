@@ -24,18 +24,18 @@ To build the images within minikube:
 To update the child charts:  
 `helm dependency update`
 
-To install the dependencies listed in the helmchart:  
-`helm dependency update`
-
 # Deploy
-`helm install --name fake-bank-backend .`
+`helm upgrade --install --name fake-bank-backend .`
 
 # Remove
 `helm delete --purge fake-bank-backend`
+
+# Logs
+`kubectl logs -f deploy/fake-bank-backend`
 
 # Debug
 Connect to a container:  
 `kubectl exec -it fake-bank-backend-database-0 bash`
 
-Read Postgres config:
+Read Postgres config:  
 `printenv | grep POSTGRES_`
