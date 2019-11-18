@@ -1,5 +1,10 @@
 version: '3.7'
 
+networks:
+  default:
+    external:
+      name: bank-network
+
 services:
   sonarqube-database:
     container_name: sonarqube-database
@@ -8,7 +13,7 @@ services:
       POSTGRES_USER: sonar
       POSTGRES_PASSWORD: sonar
     ports:
-      - '5432:5432'
+      - '5433:5432'
 
   sonarqube:
     container_name: sonarqube
@@ -27,6 +32,8 @@ services:
       - './prometheus/prometheus.yml:/etc/prometheus/prometheus.yml'
     ports:
       - '9090:9090'
+    depends_on:
+      - cadvisor
 
   grafana:
     container_name: grafana
@@ -39,3 +46,14 @@ services:
       - '3000:3000'
     depends_on:
       - prometheus
+
+  cadvisor:
+    image: 'google/cadvisor:v0.33.0'
+    container_name: cadvisor
+    ports:
+      - '9091:8080'
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:rw
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
