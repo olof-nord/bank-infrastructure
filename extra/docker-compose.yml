@@ -19,3 +19,11 @@ services:
       - '9000:9000'
     depends_on:
       - sonarqube-database
+
+  prometheus:
+    container_name: prometheus
+    image: 'prom/prometheus:v2.14.0'
+    volumes:
+      - './prometheus/prometheus.yml:/etc/prometheus/prometheus.yml'
+    ports:
+      - '9090:9090'
