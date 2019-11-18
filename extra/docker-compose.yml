@@ -27,3 +27,15 @@ services:
       - './prometheus/prometheus.yml:/etc/prometheus/prometheus.yml'
     ports:
       - '9090:9090'
+
+  grafana:
+    container_name: grafana
+    image: 'grafana/grafana:6.4.4'
+    environment:
+      GF_SECURITY_ADMIN_PASSWORD: grafana
+    volumes:
+      - './grafana/datasource.yml:/etc/grafana/provisioning/datasources/datasource.yml'
+    ports:
+      - '3000:3000'
+    depends_on:
+      - prometheus
