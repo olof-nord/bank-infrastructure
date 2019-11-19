@@ -1,17 +1,12 @@
 version: '3.7'
 
-networks:
-  default:
-    name: bank-network
-
 services:
   fake-bank-backend:
     container_name: fake-bank-backend
     image: 'fake-bank-backend:latest'
     environment:
-      SPRING_PROFILES_ACTIVE: default
-    ports:
-      - '8080:8080'
+      SPRING_PROFILES_ACTIVE: local
+    network_mode: 'host'
     depends_on:
       - fake-bank-backend-database
 
@@ -21,5 +16,4 @@ services:
     environment:
       POSTGRES_USER: fake-bank-backend
       POSTGRES_PASSWORD: backendPassword
-    ports:
-      - '5432:5432'
+    network_mode: 'host'

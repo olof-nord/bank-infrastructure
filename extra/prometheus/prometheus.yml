@@ -7,4 +7,9 @@ scrape_configs:
   - job_name: 'prometheus'
     metrics_path: '/metrics'
     static_configs:
-      - targets: ['prometheus:9090', 'cadvisor:8080']
+      - targets: ['localhost:9090']
+
+  - job_name: 'fake-bank-backend'
+    metrics_path: '/actuator/prometheus'
+    static_configs:
+      - targets: ['localhost:8080']

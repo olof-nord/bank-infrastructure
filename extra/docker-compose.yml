@@ -1,10 +1,5 @@
 version: '3.7'
 
-networks:
-  default:
-    external:
-      name: bank-network
-
 services:
   sonarqube-database:
     container_name: sonarqube-database
@@ -30,10 +25,7 @@ services:
     image: 'prom/prometheus:v2.14.0'
     volumes:
       - './prometheus/prometheus.yml:/etc/prometheus/prometheus.yml'
-    ports:
-      - '9090:9090'
-    depends_on:
-      - cadvisor
+    network_mode: 'host'
 
   grafana:
     container_name: grafana
@@ -42,18 +34,6 @@ services:
       GF_SECURITY_ADMIN_PASSWORD: grafana
     volumes:
       - './grafana/datasource.yml:/etc/grafana/provisioning/datasources/datasource.yml'
-    ports:
-      - '3000:3000'
+    network_mode: 'host'
     depends_on:
       - prometheus
-
-  cadvisor:
-    image: 'google/cadvisor:v0.33.0'
-    container_name: cadvisor
-    ports:
-      - '9091:8080'
-    volumes:
-      - /:/rootfs:ro
-      - /var/run:/var/run:rw
-      - /sys:/sys:ro
-      - /var/lib/docker/:/var/lib/docker:ro
