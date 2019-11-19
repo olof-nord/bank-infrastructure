@@ -1,0 +1,32 @@
+version: '3.7'
+
+services:
+  elasticsearch:
+    container_name: elasticsearch
+    image: 'elasticsearch:7.4.2'
+    environment:
+      ES_JAVA_OPTS: '-Xmx256m -Xms256m'
+      ELASTIC_PASSWORD: elasticsearch
+    network_mode: 'host'
+    volumes:
+      - './elasticsearch/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml'
+
+  kibana:
+    container_name: kibana
+    image: 'kibana:7.4.2'
+    environment:
+      LS_JAVA_OPTS: '-Xmx256m -Xms256m'
+      ELASTICSEARCH_HOSTS: http://localhost:9200
+    network_mode: 'host'
+    depends_on:
+      - elasticsearch
+
+  logstash:
+    container_name: logstash
+    image: 'logstash:7.4.2'
+    environment:
+      XPACK_MONITORING_ENABLED: 'true'
+      XPACK_MONITORING_ELASTICSEARCH_HOSTS: http://localhost:9200
+    network_mode: 'host'
+    depends_on:
+      - elasticsearch

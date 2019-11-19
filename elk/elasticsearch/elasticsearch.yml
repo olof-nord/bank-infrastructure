@@ -1,0 +1,4 @@
+cluster.name: 'bank-cluster'
+
+discovery.type: single-node
+network.host: localhost
