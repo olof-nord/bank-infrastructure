@@ -1,0 +1,21 @@
+version: '3.7'
+
+services:
+  sonarqube-database:
+    container_name: sonarqube-database
+    image: 'postgres:12-alpine'
+    environment:
+      POSTGRES_USER: sonar
+      POSTGRES_PASSWORD: sonar
+    ports:
+      - '5433:5432'
+
+  sonarqube:
+    container_name: sonarqube
+    image: 'sonarqube:7.9.1-community'
+    environment:
+      sonar.jdbc.url: jdbc:postgresql://sonarqube-database:5432/sonar
+    ports:
+      - '9000:9000'
+    depends_on:
+      - sonarqube-database
