@@ -1,4 +1,5 @@
 # bank-infrastructure
+
 Bank - Infrastructure
 
 This repository contains infrastructure.
@@ -10,3 +11,6 @@ This repository contains infrastructure.
 
 ## Tooling
 * Docker-compose
+
+# Start
+`docker-compose up`
