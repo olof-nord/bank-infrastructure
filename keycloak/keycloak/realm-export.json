@@ -8,7 +8,7 @@
   "requiredCredentials": [ "password" ],
   "users": [
     {
-      "username": "fake-bank-user",
+      "username": "olof",
       "enabled": true,
       "credentials": [
         {
@@ -16,12 +16,39 @@
           "value": "password"
         }
       ],
+      "realmRoles": [ "user" ],
+      "clientRoles": {
+        "account": [ "manage-account" ]
+      }
+    },
+    {
+      "username": "admin",
+      "enabled": true,
+      "credentials": [
+        {
+          "type": "password",
+          "value": "password"
+        }
+      ],
+      "realmRoles": [ "user","admin" ],
       "clientRoles": {
         "realm-management": [ "realm-admin" ],
         "account": [ "manage-account" ]
       }
     }
   ],
+  "roles": {
+    "realm": [
+      {
+        "name": "user",
+        "description": "User privileges"
+      },
+      {
+        "name": "admin",
+        "description": "Administrator privileges"
+      }
+    ]
+  },
   "clients": [
     {
       "clientId": "fake-bank-backend",
@@ -30,7 +57,7 @@
       "fullScopeAllowed": true,
       "baseUrl": "/bank-backend",
       "redirectUris": [
-        "/bank-backend/*"
+        "http:/localhost:8080/*"
       ],
       "secret": "password"
     }
