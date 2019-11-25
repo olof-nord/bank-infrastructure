@@ -23,8 +23,10 @@ services:
       KEYCLOAK_IMPORT: /opt/jboss/keycloak/imports/realm-export.json
     volumes:
       - './keycloak/realm-export.json:/opt/jboss/keycloak/imports/realm-export.json'
+    command:
+      - '-Djboss.socket.binding.port-offset=100'
     ports:
-      - '8080:8080'
+      - '8180:8180'
       - '9990:9990'
     depends_on:
       - keycloak-database
