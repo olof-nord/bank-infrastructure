@@ -52,14 +52,16 @@
   "clients": [
     {
       "clientId": "fake-bank-backend",
-      "directAccessGrantsEnabled": true,
+      "rootUrl": "http://localhost:8080",
       "enabled": true,
-      "fullScopeAllowed": true,
-      "baseUrl": "/bank-backend",
       "redirectUris": [
-        "http:/localhost:8080/*"
+        "http://localhost:8080/sso/login"
       ],
-      "secret": "password"
+      "webOrigins": [
+        "http://localhost:8080"
+      ],
+      "publicClient": true,
+      "directAccessGrantsEnabled": true
     }
   ]
 }
