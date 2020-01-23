@@ -61,7 +61,25 @@
         "http://localhost:8080"
       ],
       "publicClient": true,
-      "directAccessGrantsEnabled": true
+      "directAccessGrantsEnabled": true,
+      "defaultClientScopes": [
+        "user"
+      ],
+      "optionalClientScopes": [
+        "email"
+      ]
+    }
+  ],
+  "clientScopes": [
+    {
+      "name": "user",
+      "description": "User scope",
+      "protocol": "openid-connect"
+    },
+    {
+      "name": "email",
+      "description": "Email scope",
+      "protocol": "openid-connect"
     }
   ]
 }
