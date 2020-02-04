@@ -1,11 +1,12 @@
 {
   "realm": "fake-bank-realm",
   "enabled": true,
-  "sslRequired": "external",
   "registrationAllowed": true,
   "privateKey": "MIICXAIBAAKBgQCrVrCuTtArbgaZzL1hvh0xtL5mc7o0NqPVnYXkLvgcwiC3BjLGw1tGEGoJaXDuSaRllobm53JBhjx33UNv+5z/UMG4kytBWxheNVKnL6GgqlNabMaFfPLPCF8kAgKnsi79NMo+n6KnSY8YeUmec/p2vjO2NjsSAVcWEQMVhJ31LwIDAQABAoGAfmO8gVhyBxdqlxmIuglbz8bcjQbhXJLR2EoS8ngTXmN1bo2L90M0mUKSdc7qF10LgETBzqL8jYlQIbt+e6TH8fcEpKCjUlyq0Mf/vVbfZSNaVycY13nTzo27iPyWQHK5NLuJzn1xvxxrUeXI6A2WFpGEBLbHjwpx5WQG9A+2scECQQDvdn9NE75HPTVPxBqsEd2z10TKkl9CZxu10Qby3iQQmWLEJ9LNmy3acvKrE3gMiYNWb6xHPKiIqOR1as7L24aTAkEAtyvQOlCvr5kAjVqrEKXalj0Tzewjweuxc0pskvArTI2Oo070h65GpoIKLc9jf+UA69cRtquwP93aZKtW06U8dQJAF2Y44ks/mK5+eyDqik3koCI08qaC8HYq2wVl7G2QkJ6sbAaILtcvD92ToOvyGyeE0flvmDZxMYlvaZnaQ0lcSQJBAKZU6umJi3/xeEbkJqMfeLclD27XGEFoPeNrmdx0q10Azp4NfJAY+Z8KRyQCR2BEG+oNitBOZ+YXF9KCpH3cdmECQHEigJhYg+ykOvr1aiZUMFT72HU0jnmQe2FVekuG+LJUt2Tm7GtMjTFoGpf0JwrVuZN39fOYAlo+nTixgeW7X8Y=",
   "publicKey": "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCrVrCuTtArbgaZzL1hvh0xtL5mc7o0NqPVnYXkLvgcwiC3BjLGw1tGEGoJaXDuSaRllobm53JBhjx33UNv+5z/UMG4kytBWxheNVKnL6GgqlNabMaFfPLPCF8kAgKnsi79NMo+n6KnSY8YeUmec/p2vjO2NjsSAVcWEQMVhJ31LwIDAQAB",
-  "requiredCredentials": [ "password" ],
+  "requiredCredentials": [
+    "password"
+  ],
   "displayName": "Fake Bank Realm",
   "users": [
     {
@@ -19,10 +20,9 @@
           "value": "password"
         }
       ],
-      "realmRoles": [ "user-realm-role" ],
-      "clientRoles": {
-        "fake-bank-backend": [ "fake-bank-backend-client-role" ]
-      }
+      "realmRoles": [
+        "user-realm-role"
+      ]
     },
     {
       "username": "admin",
@@ -33,9 +33,13 @@
           "value": "password"
         }
       ],
-      "realmRoles": [ "admin-realm-role" ],
+      "realmRoles": [
+        "admin-realm-role"
+      ],
       "clientRoles": {
-        "realm-management": [ "realm-admin" ]
+        "realm-management": [
+          "realm-admin"
+        ]
       }
     }
   ],
@@ -49,50 +53,74 @@
         "name": "admin-realm-role",
         "description": "Administrator realm role"
       }
-    ],
-    "client": {
-      "fake-bank-backend": [
-        {
-          "name": "fake-bank-backend-client-role",
-          "description": "Bank backend client role",
-          "composite": false,
-          "clientRole": true
-        }
-      ]
-    }
+    ]
   },
   "clients": [
     {
       "clientId": "fake-bank-backend",
       "rootUrl": "http://localhost:8080",
+      "adminUrl": "http://localhost:8080",
       "enabled": true,
       "clientAuthenticatorType": "client-secret",
       "secret": "14b114fd-4d3d-4e20-8a5c-3b6314c20861",
       "redirectUris": [
-        "http://localhost:8080/sso/login"
+        "http://localhost:8080/*"
       ],
       "webOrigins": [
         "http://localhost:8080"
       ],
-      "publicClient": true,
+      "notBefore": 0,
+      "bearerOnly": false,
+      "consentRequired": false,
+      "standardFlowEnabled": true,
+      "implicitFlowEnabled": true,
       "directAccessGrantsEnabled": true,
+      "serviceAccountsEnabled": true,
+      "authorizationServicesEnabled": true,
+      "publicClient": false,
+      "frontchannelLogout": false,
+      "protocol": "openid-connect",
       "defaultClientScopes": [
         "user"
       ],
       "optionalClientScopes": [
         "email"
-      ]
+      ],
+      "authorizationSettings": {
+        "allowRemoteResourceManagement": false,
+        "policyEnforcementMode": "ENFORCING",
+        "resources": [
+          {
+            "name": "Default Resource",
+            "uri": "/customers/{resource}"
+          }
+        ],
+        "policies": [
+          {
+            "name": "Default Resource Permission",
+            "description": "A permission that applies to the default resource",
+            "type": "resource",
+            "logic": "POSITIVE",
+            "decisionStrategy": "UNANIMOUS",
+            "config": {
+              "resources": "[\"Default Resource\"]"
+            }
+          }
+        ],
+        "scopes": [],
+        "decisionStrategy": "UNANIMOUS"
+      }
     }
   ],
   "clientScopes": [
     {
       "name": "user",
-      "description": "User scope",
+      "description": "User client scope",
       "protocol": "openid-connect"
     },
     {
       "name": "email",
-      "description": "Email scope",
+      "description": "Email client scope",
       "protocol": "openid-connect"
     }
   ]
