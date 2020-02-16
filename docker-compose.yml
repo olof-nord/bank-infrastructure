@@ -12,7 +12,7 @@ services:
 
   fake-bank-backend-database:
     container_name: fake-bank-backend-database
-    image: 'postgres:12-alpine'
+    image: 'postgres:12.2-alpine'
     environment:
       POSTGRES_USER: fake-bank-backend
       POSTGRES_PASSWORD: backendPassword
